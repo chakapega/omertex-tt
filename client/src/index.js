@@ -1,5 +1,16 @@
+const authenticationStatusIndicator = document.querySelector('.authentication-status-indicator');
 const signupForm = document.querySelector('.signup-form');
 const loginForm = document.querySelector('.login-form');
+const logoutButton = document.querySelector('.button_logout');
+const setAuthenticationStatus = () => {
+  if (localStorage.getItem('userData')) {
+    authenticationStatusIndicator.style.backgroundColor = '#008000';
+  } else {
+    authenticationStatusIndicator.style.backgroundColor = '#ff0000';
+  }
+};
+
+setAuthenticationStatus();
 
 signupForm.addEventListener('submit', async event => {
   try {
@@ -24,6 +35,7 @@ signupForm.addEventListener('submit', async event => {
     const { message, userId, token } = data;
 
     localStorage.setItem('userData', JSON.stringify({ userId, token }));
+    setAuthenticationStatus();
     signupForm.reset();
     alert(message);
   } catch (error) {
@@ -54,9 +66,15 @@ loginForm.addEventListener('submit', async event => {
     const { message, userId, token } = data;
 
     localStorage.setItem('userData', JSON.stringify({ userId, token }));
+    setAuthenticationStatus();
     loginForm.reset();
     alert(message);
   } catch (error) {
     alert(error.message || 'An error occured, please try again');
   }
+});
+
+logoutButton.addEventListener('click', () => {
+  localStorage.removeItem('userData');
+  setAuthenticationStatus();
 });

@@ -1,3 +1,13 @@
+.authentication-status-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 260px;
+}
+.authentication-status-indicator {
+  width: 50px;
+  height: 25px;
+}
 .signup-form-container {
   display: flex;
   flex-direction: column;
