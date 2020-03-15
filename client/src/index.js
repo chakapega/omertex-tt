@@ -3,6 +3,7 @@ const formsContainer = document.querySelector('.forms-container');
 const signupForm = document.querySelector('.signup-form');
 const buttonsContainer = document.querySelector('.buttons-container');
 const infoButton = document.querySelector('.button_info');
+const latencyButton = document.querySelector('.button_latency');
 const loginForm = document.querySelector('.login-form');
 const logoutButton = document.querySelector('.button_logout');
 const setAuthenticationStatusIndicator = () => {
@@ -120,6 +121,34 @@ infoButton.addEventListener('click', async () => {
     localStorage.setItem('userData', JSON.stringify({ token: updatedToken }));
 
     alert(`userId: ${userId}, userIdType: ${userIdType}`);
+  } catch (error) {
+    alert(error.message || 'An error occured, please try again');
+  }
+});
+
+latencyButton.addEventListener('click', async () => {
+  try {
+    const { token } = JSON.parse(localStorage.getItem('userData'));
+    const response = await fetch('http://localhost:5000/latency', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+
+    if (response.status === 403) {
+      localStorage.removeItem('userData');
+      setAuthenticationStatusIndicator();
+      setVisibilityFormsContainer();
+      setVisibilityButtonsContainer();
+    }
+    if (!response.ok) throw new Error(data.message);
+
+    const { updatedToken, latency } = data;
+
+    localStorage.setItem('userData', JSON.stringify({ token: updatedToken }));
+    alert(`Latency between server and google.com is ${latency} ms`);
   } catch (error) {
     alert(error.message || 'An error occured, please try again');
   }

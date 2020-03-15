@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const http = require('http');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
@@ -70,6 +71,36 @@ server.get('/info', async (request, response) => {
       const updatedToken = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '5m' });
 
       response.json({ userId: user.userId, userIdType: user.userIdType, updatedToken });
+    });
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || 'An error occured, please try again'
+    });
+  }
+});
+
+server.get('/latency', async (request, response) => {
+  try {
+    const authorizationHeader = request.headers['authorization'];
+    const token = authorizationHeader && authorizationHeader.split(' ')[1];
+
+    jwt.verify(token, jwtSecret, async (error, data) => {
+      if (error) return response.status(403).json({ message: error.message });
+
+      const { userId } = data;
+      const updatedToken = jwt.sign({ userId }, jwtSecret, { expiresIn: '5m' });
+      const options = {
+        hostname: 'www.google.com'
+      };
+      const startTime = new Date();
+      const latencyDefinitionRequest = http.request(options);
+
+      latencyDefinitionRequest.end(() => {
+        const endTime = new Date();
+        const latency = endTime - startTime;
+
+        response.json({ updatedToken, latency });
+      });
     });
   } catch (error) {
     response.status(500).json({
