@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./src/style.css" />
     <title>omertex-tt</title>
   </head>
@@ -16,34 +22,43 @@
         <h4>Sign up</h4>
         <form class="signup-form">
           <label for="signup-form__input_email">Email</label>
-          <input type="email" name="email" id="signup-form__input_email" required />
+          <input type="email" name="email" id="signup-form__input_email" class="form-control" required />
           <label for="signup-form__input_password">Password</label>
           <input
             type="password"
             name="password"
             id="signup-form__input_password"
+            class="form-control"
             minlength="4"
             maxlength="8"
             required
           />
-          <button type="submit">Sign up</button>
+          <button type="submit" class="btn btn-primary">Sign up</button>
         </form>
       </div>
       <div class="login-form-container">
         <h4>Login</h4>
         <form class="login-form">
           <label for="login-form__input_email">Email</label>
-          <input type="email" name="email" id="login-form__input_email" required />
+          <input type="email" name="email" id="login-form__input_email" class="form-control" required />
           <label for="login-form__input_password">Password</label>
-          <input type="password" name="password" id="login-form__input_password" minlength="4" maxlength="8" required />
-          <button type="submit">Login</button>
+          <input
+            type="password"
+            name="password"
+            id="login-form__input_password"
+            class="form-control"
+            minlength="4"
+            maxlength="8"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Login</button>
         </form>
       </div>
     </div>
     <div class="buttons-container">
-      <button class="button_info">Info</button>
-      <button class="button_latency">Latency</button>
-      <button class="button_logout">Logout</button>
+      <button class="button_info btn btn-primary">Info</button>
+      <button class="button_latency btn btn-primary">Latency</button>
+      <button class="button_logout btn btn-primary">Logout</button>
     </div>
     <script src="./src/index.js" defer></script>
   </body>

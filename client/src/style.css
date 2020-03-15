@@ -2,14 +2,20 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 260px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 .authentication-status-indicator {
   width: 50px;
   height: 25px;
+  border-radius: 0.25rem;
+}
+.forms-container {
+  display: flex;
+  justify-content: space-around;
 }
 .signup-form-container {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   margin-bottom: 30px;
 }
@@ -17,11 +23,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 260px;
-  height: 160px;
+  width: 280px;
+  height: 210px;
 }
 .login-form-container {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   margin-bottom: 50px;
 }
@@ -29,11 +35,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 260px;
-  height: 160px;
+  width: 280px;
+  height: 210px;
 }
 .buttons-container {
   display: flex;
   justify-content: space-between;
-  width: 260px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+@media (max-width: 575.98px) {
+  .forms-container {
+    align-items: center;
+    flex-direction: column;
+  }
 }

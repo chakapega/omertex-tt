@@ -23,7 +23,7 @@ const setVisibilityFormsContainer = () => {
   if (localStorage.getItem('userData')) {
     formsContainer.style.display = 'none';
   } else {
-    formsContainer.style.display = 'block';
+    formsContainer.style.display = 'flex';
   }
 };
 
