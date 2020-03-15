@@ -4,6 +4,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const mongoURI =
   'mongodb+srv://chakapega:chakapegaomertextt@cluster0-3yi6p.azure.mongodb.net/test?retryWrites=true&w=majority';
@@ -22,7 +23,8 @@ server.post('/signup', async (request, response) => {
       return response.status(400).json({ message: 'This account already exists' });
     }
 
-    const user = new User({ userId: email, password, userIdType: 'email' });
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const user = new User({ userId: email, password: hashedPassword, userIdType: 'email' });
 
     await user.save();
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '5m' });
@@ -44,7 +46,9 @@ server.post('/login', async (request, response) => {
       return response.status(400).json({ message: 'Account is not found' });
     }
 
-    if (user.password !== password) {
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
       return response.status(400).json({ message: 'Wrong password' });
     }
 
