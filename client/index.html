@@ -11,25 +11,34 @@
       <h5>Authentication status</h5>
       <div class="authentication-status-indicator"></div>
     </div>
-    <div class="signup-form-container">
-      <h4>Sign up</h4>
-      <form class="signup-form">
-        <label for="signup-form__input_email">Email</label>
-        <input type="email" name="email" id="signup-form__input_email" required />
-        <label for="signup-form__input_password">Password</label>
-        <input type="password" name="password" id="signup-form__input_password" minlength="4" maxlength="8" required />
-        <button type="submit">Sign up</button>
-      </form>
-    </div>
-    <div class="login-form-container">
-      <h4>Login</h4>
-      <form class="login-form">
-        <label for="login-form__input_email">Email</label>
-        <input type="email" name="email" id="login-form__input_email" required />
-        <label for="login-form__input_password">Password</label>
-        <input type="password" name="password" id="login-form__input_password" minlength="4" maxlength="8" required />
-        <button type="submit">Login</button>
-      </form>
+    <div class="forms-container">
+      <div class="signup-form-container">
+        <h4>Sign up</h4>
+        <form class="signup-form">
+          <label for="signup-form__input_email">Email</label>
+          <input type="email" name="email" id="signup-form__input_email" required />
+          <label for="signup-form__input_password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="signup-form__input_password"
+            minlength="4"
+            maxlength="8"
+            required
+          />
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+      <div class="login-form-container">
+        <h4>Login</h4>
+        <form class="login-form">
+          <label for="login-form__input_email">Email</label>
+          <input type="email" name="email" id="login-form__input_email" required />
+          <label for="login-form__input_password">Password</label>
+          <input type="password" name="password" id="login-form__input_password" minlength="4" maxlength="8" required />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
     <div class="buttons-container">
       <button class="button_info">Info</button>

@@ -26,9 +26,7 @@ server.post('/signup', async (request, response) => {
     await user.save();
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '5m' });
 
-    response
-      .status(201)
-      .json({ message: 'The account was created successfully and you are logged in', token, userId: user.id });
+    response.status(201).json({ message: 'The account was created successfully and you are logged in', token });
   } catch (error) {
     response.status(500).json({
       message: error.message || 'An error occured, please try again'
@@ -51,7 +49,28 @@ server.post('/login', async (request, response) => {
 
     const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '5m' });
 
-    response.json({ message: 'You have successfully logged in', token, userId: user.id });
+    response.json({ message: 'You have successfully logged in', token });
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || 'An error occured, please try again'
+    });
+  }
+});
+
+server.get('/info', async (request, response) => {
+  try {
+    const authorizationHeader = request.headers['authorization'];
+    const token = authorizationHeader && authorizationHeader.split(' ')[1];
+
+    jwt.verify(token, jwtSecret, async (error, data) => {
+      if (error) return response.status(403).json({ message: error.message });
+
+      const { userId } = data;
+      const user = await User.findById(userId);
+      const updatedToken = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '5m' });
+
+      response.json({ userId: user.userId, userIdType: user.userIdType, updatedToken });
+    });
   } catch (error) {
     response.status(500).json({
       message: error.message || 'An error occured, please try again'
